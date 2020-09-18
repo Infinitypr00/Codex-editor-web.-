@@ -1,0 +1,1163 @@
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <style>
+body {
+    margin:0;
+    height:100vh;
+    width:100vw;
+    
+}
+*{outline:none}
+
+.clay , .elemP{
+    position:absolute;
+    height:100px;
+    overflow:scroll;
+   
+}
+.clay div , .elemP div{
+    height:20px;
+    line-height:20px;
+    text-align:center;
+    background-color:#4cf;
+    margin-top:2%;
+     padding:4px 10px 4px 10px;
+    
+}            
+    .html ,.css, .js{padding-top:8%;height:92%;}
+
+.html .ruler , .css .ruler , .js .ruler{
+    width:10%;
+    min-height:100%;
+    border-right:1px solid black;
+    float:left;
+    line-height:18px;
+    text-align:center;
+    overflow:hidden
+}
+.css , .js{display:none}
+
+.html textarea , .css textarea , .js textarea{
+    
+    min-height:100%;
+    float:left;
+    font-size:15px;
+    line-height:18px;
+    text-align:left;
+    outline:none;
+    width:86.5%;
+    resize:no-resize;
+    
+} 
+header{
+    width:96%;
+    height:35px;
+    padding:1% 3% 1% 1%;
+    -moz-box-sizing:border-box;
+-webkit-box-sizing:border-box;
+-o-box-sizing:border-box;
+position:fixed;
+top:-1%;
+
+}
+
+header button{
+    width:70px;
+    height:30px;
+    background-color:#4cf;
+    border:none;
+}
+.output{
+    width:100%;
+    padding-top:8%;height:92%;
+    overflow:scroll;
+    display:none;
+}
+  .output iframe{
+width:100%;
+height:100%; 
+border:1px solid black;     
+      
+  } 
+  
+  .menu_log{
+      float:right;
+      height:30px;
+      margin-right:-10px;
+  } 
+  .menu_log .menu{height:30px}
+  
+.menu  div{
+      width:5px;
+      height:5px;
+      background-color:#4cf;
+      margin-top:4px;
+  } 
+  .menu_log .opt{
+position:absolute;
+width:100px;
+margin-left:-100px; 
+background-color:#4cf;
+line-height:30px;
+padding:2px;
+display:none;
+     
+  }
+  
+  .color{
+      position:absolute;
+      top:30%;
+      width:98%;
+      left:1%;
+     height:300px;
+      border:1px solid black;
+      display:none;
+  }
+  
+  #font{
+ position:absolute;
+      top:40%;
+      width:88%;
+      left:6%;  
+      background-color:#4cf; 
+      display:none; 
+  }
+  #font input{
+      width:100%;
+      margin-top:10px;
+  }
+  #font button{
+      width:30px;
+      height:30px;
+      float:right;
+      margin-right:20px;
+      background-color:white;
+      border:none;
+      margin-bottom:3px;
+  }
+  
+  header .active{
+ background-color:white;
+ color:#4cf; 
+ font-weight:bolder;    
+      
+  }
+  
+  .color .col{
+width:8%;
+height:8%;
+margin:1%; 
+background-color:blue;
+display:inline-block;     
+      
+  }
+  
+  .btnCon{
+width:100%;
+height:30px;
+margin-top:5px;      
+      
+  }
+  
+  .btnCon button{
+      margin-left:80%;
+      height:30px;
+      border:none;
+      background-color:#4cf;
+      font-weight:bolder;
+      
+  }
+</style>
+    <body>
+<header>
+<button id = "html" class = "active">HTML</button>   <button id = "css">CSS</button> <button id = "js">JS</button>
+<button id = "output">OUTPUT</button>
+<div class = "menu_log">
+
+<div class = "menu">
+
+  <div></div>  
+   <div></div> 
+   <div></div>
+</div>
+
+<div class ="opt">
+    
+  <div onclick = 'f(".color").style.display = "block";'>Colors</div>
+  
+  <div onclick = 'f("#font").style.display = "block"'>Font-size</div>  
+</div>
+  </div>  
+    
+    
+</header>
+    
+ <div class ="html">
+<div class ="ruler">1</div>
+<textarea></textarea>     
+     
+ </div>
+ 
+  <div class ="css">
+<div class ="ruler">1</div>
+<textarea></textarea>     
+     
+ </div>
+ 
+ 
+  <div class ="js">
+<div class ="ruler">1</div>
+<textarea></textarea>     
+     
+ </div>
+ 
+ <div class = "color">
+ 
+     
+<div class ="btnCon">
+    
+ <button>Cancel</button>   
+</div>     
+ </div>
+ 
+ <div id = "font">
+  <input type = "range" min = "10" max = "20" value = "12">  
+  <button id ="ok">Ok</button> 
+     
+ </div>
+    
+    
+    <div class ="output">
+  <iframe id ="live_view">
+  <center>Font size</center>
+    <input>  
+      
+  </iframe>      
+        
+    </div>
+    
+    
+    
+        <script>
+        
+        String.prototype.rev = function(){
+   var res = "";
+   
+   for(var g = this.length-1; g >=0; g-- ){
+       res += this[g];
+   }        
+      return res;      
+        }
+        
+        
+var d = document.querySelectorAll.bind(document) , myElements = "div,textarea,p,section,head,body,span,input,nav,article,button,html,header,title,datalist,dl,dt,dd,h1,h2,h3,h4,h5,h6,script,form,canvas,svg".split(",");
+myAtrib = "value class id type href placeholder action enctype method name".split(" ") , 
+cssUser = [] , defaultFont = 12 , currElem = d("textarea")[0];
+
+
+
+
+  d("textarea")[0].onkeyup = function(ev){
+ var val = this.value;
+
+this.style.height = this.previousElementSibling.scrollHeight+"px";
+ 
+ 
+  var t = this.selectionStart , k = this.selectionEnd  , read = ""; 
+    
+  
+  for(var f = t-1; f > 0; f--){
+  read += val[f];
+ if(val[f-1] == "/"){break}
+    if(val[f-1] == "<"){
+    read = read.replace("<" ,"");
+    read = read.rev().trim();
+    
+  
+  
+ loadArrContent(myElements , "clay",read , function(){  
+  var cx = f;  
+  var text = d("textarea")[0] , word = "";
+  if(!inArray(cssUser , this.innerText)){
+  cssUser.push(this.innerText)};
+  
+  
+  for(var k = f+read.length+1; k < val.length; k++){
+ word += val[k];
+ if(val[k] == "/"){break}    
+      
+  } 
+  
+ word = /**word.startsWith(read) ? word.length+1 :**/ 0;
+  
+  
+  var x = val.substring(0,cx-1)+`<${this.innerText}></${this.innerText}>`+val.substring(cx+read.length+word,val.length)     
+     text.value = x;
+ var k = cx + this.innerText.length + 1;
+
+     text.setSelectionRange(k,k);
+     text.focus();
+     document.body.removeChild(this.parentElement)
+  
+  } , t , this) 
+  
+  var sd = val.substring(t , t+20);
+  
+ 
+ if(sd.search(">") > -1 &&  sd.search('"') == -1 ){
+ 
+var tst = read.split(" ");
+if(inArray(myElements , tst[0].trim()) && read.rev().search(" ") > -1){
+var g = read.rev().search(" ");
+
+g = val.substring(t-g-1 , t);
+
+var that = this;
+
+loadArrContent(myAtrib , "clay", g.trim() , function(){ 
+ 
+that.value = val.substring(0,t-g.length+1) + this.innerText + ' = ""'+ val.substring(t , val.length);
+
+var curPos = (t-g.length)+this.innerText.length + 5;
+that.setSelectionRange(curPos , curPos);
+that.focus();
+document.body.removeChild(this.parentElement)
+
+
+} , t , this)
+    
+}     
+     
+ } 
+ //for retrieving the id & class values
+ 
+  var k = read;
+  k = k.replace('"', "'");
+  
+ var z = k.rev().search("'");
+ 
+ 
+if(k[k.length-1] == '"' || val[t-1] == ">" && z != -1){
+//to check if the preceding data is class or id;
+
+//for id
+var x = k.search("'") , y = k.search('"');
+
+var id = read.substring( x-5, x-3 ),
+
+classN = read.substring(x-8,x-3),
+
+dir = read.substring(x+1 , y);
+
+if(id.trim() == "id"){
+
+dir = dir.split(" ");
+
+for(var cv of dir){
+if(!inArray(cssUser , cv)){
+cssUser.push("#"+cv)}
+
+}}
+
+else if(classN.trim() == "class"){
+
+dir = dir.split(" ");
+
+for(var cv of dir){
+if(!inArray(cssUser , cv)){
+cssUser.push("."+cv)}
+
+}
+    
+}}
+      break;   
+        
+    }  }
+    
+    
+// to put line numbers  
+lineNumber(this)
+
+// to insert space
+if(ev.keyCode == 13){
+var inText = this.value , totFont = genFontAmt(defaultFont, getPerValue(85.6 , window.innerWidth)) ,
+
+f = inText.substring(0,t-1).rev();
+var w = f;
+var g = f.length; f = f.search("\n");
+f = f < 0 ? g : inText[t-2] == ">" ? w.search("/") != -1 ? (w = w.replace("/<" , "").search("<") ,f- Math.ceil(w)+2) : (w = Math.ceil(w.search("<")/2) , f-w): f > totFont-5 ? 0 : f;
+this.value = inText.substring(0,t)+addNull(f)+inText.substring(t,inText.length);
+this.setSelectionRange(t+f , t+f);
+this.focus()
+
+}  
+      
+  }          
+     
+//for adding space to the text     
+           
+  function addNull(amt){
+  res = "";
+  for(var h = 0; h < amt; h++){res+=" "}    
+   return res;   
+  }
+  
+ //function that insert lines to the sides 
+  
+  function lineNumber(elem){
+  var val = elem.value , side = elem.previousElementSibling , count = 0 ,tager = 1 , totFont = genFontAmt(defaultFont, getPerValue(85.6 , window.innerWidth));
+  
+  side.innerText = 1;
+  
+ for(var h = 0; h < val.length; h++){
+count++;
+   if(val[h] == "\n"){
+    
+
+   tager++;
+       side.innerHTML += "</br>"+tager;
+       count =0;
+       
+   }
+   if(count == totFont){
+ side.innerHTML += "</br>"; 
+ count = 0;     
+   }
+   
+}         
+  }
+  
+  
+  
+var t = document.querySelector.bind(document) ,
+w = window.innerWidth , h = window.innerHeight; 
+     
+ function getPerValue(val, total){
+     return val/100 * total;
+ } 
+ 
+ 
+ function getTopLeft(elem,point,type){
+ 
+ var t = point , val = elem.value , 
+ totFont = genFontAmt(defaultFont, getPerValue(85.6 , window.innerWidth));
+ 
+ if(type == "top"){
+ var res = 1 , count = 0 , height = 0, width = 0;
+for(var h = 0; h < t; h++){
+  count++;
+ if(val[h] == "\n"){
+     res++;
+     count = 0;
+ }
+ 
+ if(count == totFont){
+     res++;
+     count = 0;
+ }
+     
+  }
+
+var mn =  (40+(res * 18)+getPerValue (2, window.innerHeight));
+ 
+height = res > 1 ? mn  : 48+getPerValue (2,window.innerHeight);
+return height;
+
+}
+else{
+
+var f = val.substring(0,t-1);
+f = f.rev();
+var g = f.length; f = f.search("\n");
+
+f = f < 0 ? g > totFont ? g - (Math.floor(g/totFont)  * totFont) : g :f; 
+
+var cal = getPerValue(85.6,window.innerWidth) / totFont;
+cal = getPerValue(10,window.innerWidth) + cal * f;
+
+width =  cal > window.innerWidth ? window.innerWidth - 15 : cal;
+
+return width;     
+ }    
+ }
+  
+   
+var gt = document.querySelector.bind(document);
+
+var z = gt(".css textarea"),
+cssProperty = "background-color background width height text-align font-size font-family font-weight line-height content word-wrap display direction text-indent text-transform text-decoration text-shadow border border-right border-left border-top border-bottom padding padding-top padding-bottom padding-left padding-right top left right bottom z-index box-shadow box-sizing word-spacing text-top visibility transition -moz-transition -o-transition animation animation-delay animation-timing-function transform position margin margin-top margin-bottom margin-left margin-right float clear @keyframes align-items background-image".split(" ") ,
+
+values = "center left right relative absolute fixed none bold bolder border-box padding-box inline inline-block block hidden visible scroll infinite linear rotate translate rgb rgba url both".split(" ");
+
+
+
+z.onkeyup = function(ev){
+var t = this.selectionStart , val = this.value , read = "" , pilArr = [] , canProceed = true , that = this;
+this.style.height = this.previousElementSibling.scrollHeight+"px";
+
+
+doubleChar(this,t,canProceed) 
+
+
+
+for(var x = t; x > 0; x-- ){
+ read+= val[x];
+ if(val[x] == ":"){canProceed = true;break}
+ if(val[x-1] == "{" || val[x-1] == ";"){
+ read = read.replace("}","").rev().trim();
+ var c = read.length;
+ 
+ loadArrContent(cssProperty , "elemP" , read , function(){
+ 
+ var v = x;
+z.value = val.substring(0,t-c)+this.innerText+":"+(val[t] == ";" ? "" : ";")+val.substring(t,val.length);
+//to set the cursor pos
+var s = (t-c)+this.innerText.length+1;
+z.setSelectionRange(s,s);
+z.focus();
+document.body.removeChild(this.parentElement)           
+ } , t , this)
+ 
+     break;
+ }  }
+ 
+ 
+//to load the class and id in css 
+
+ var tag_read = ""
+ for(var l = t-1; l > 0; l--){
+  tag_read += val[l];
+  if(tag_read.includes("{") || tag_read.includes(";")){break}
+  if( val[l-1] == "}" || val[l-1] == "," || val[l-1] == " " || l == 0){
+    
+ tag_read = tag_read.rev().trim();
+var k = tag_read.length;
+
+loadArrContent(cssUser , "elemP" , tag_read ,  function(){
+ 
+that.value = val.substring(0,t-k)+this.innerText+val.substring(t,val.length);
+//to set the cursor pos
+var s = (t-tag_read.length)+this.innerText.length;
+that.setSelectionRange(s,s);
+that.focus();
+document.body.removeChild(this.parentElement)           
+ } , t , this);
+ 
+ break;
+ 
+ } 
+    
+}
+
+lineNumber(this)
+//handling the values
+if(canProceed){
+var val_read = "";
+var valArray = [];
+for(var m = t-1; m > 0; m-- ){
+ val_read += val[m];
+ 
+ if(val[m-1] == "{" || val[m-1] == ";"){break}
+ 
+ if(val[m-1] == ":"){
+
+ val_read = val_read.replace(":","");
+ val_read = val_read.replace(";","")
+ val_read = val_read.rev().trim();
+ 
+ var k = val_read.length;
+ 
+loadArrContent(values , "elemP" , val_read ,function(){
+ var v = m;
+ //to display the end right;
+ var end = this.innerText == "translate" || this.innerText == "rba" || this.innerText == "rotate" || this.innerText == "rgba" || this.innerText == "url" ?  "()" : "";
+ 
+that.value = val.substring(0,t-k)+this.innerText+end+(val[t] == ";" ? "" : ";")+val.substring(t,val.length);
+//to set the cursor pos
+var s = (t-k)+this.innerText.length+1;
+z.setSelectionRange(s,s);
+z.focus();
+document.body.removeChild(this.parentElement)}, t , this)
+ 
+     
+ }   
+ }  
+ 
+ 
+ 
+  
+} 
+        
+}
+
+   function getPerValue(per,val){
+       return per/100 * val;
+   }
+   
+function doubleChar(elem , point,allow){
+var charAr = ['"' , "{","(","["] , altChar = ['"',"}",")","]"] , val = elem.value;
+
+for(var d = 0; d < charAr.length; d++){  
+if(val[point-1] == charAr[d] && allow && val[point] != altChar[d]){
+
+elem.value = val.substring(0,point)+altChar[d]+val.substring(val[point-1] == charAr[d] ? point : point -1,val.length);
+//to set cursor
+
+elem.setSelectionRange(point,point)
+allow =  false;  
+ } 
+ 
+ if(val[point-1] == altChar[d] && val[point-2] == charAr[d]){
+elem.setSelectionRange(point-1,point-1)     
+     
+ }  
+ }  
+   
+}        
+   var f = document.querySelector.bind(document) , varArr = ["constant","function","var","let","break","continue","Array","String","class","public","private","try","catch","extends","implements","protected","alert","console","static" , "get" , "set","constructor","this","document","window"], isFirst = true , canStore = true;
+ 
+f(".js textarea").onkeyup = function(ev){
+
+var val = this.value , t = this.selectionStart , read = "" , canProceed = true;
+
+this.style.height = this.previousElementSibling.scrollHeight+"px";
+
+
+doubleChar(this,t, canProceed)
+for(var v = t-1; v >= 0; v--){
+   read += val[v]; 
+//to prevent the code from storing array param && obj param
+if(val[t-1] == "["){canStore = false}
+if(val[t-1] == "{"){
+ //to make sure it stores var in funcs
+ 
+    
+    
+}
+   
+ 
+   
+  if(val[v-1] == "{"){break;} 
+   if(val[v-1] == " " && checkBreaks(val[t-1])){ 
+   //to handle func and class
+var mn =  val.substring(v-9 , v-1),
+//to handle let and var 
+sd = val.substring(v-4 , v-1) , 
+// to handle class defining
+jd = val.substring(v-6 , v-1);
+ 
+if(is_a_definer(mn)){
+    read = read.rev()
+       read = read.substring(0,read.length-1)
+   read  = strProcessor(read);
+   read = stripUnChars(read);
+   if(!inArray(varArr , read)){
+   varArr.push(read);        
+   }
+}
+
+if(is_a_definer(jd)){
+ read = read.rev();
+ 
+       read = read.substring(0,read.length-1)
+   read  = strProcessor(read);
+   read = stripUnChars(read);
+   if(!inArray(varArr , read)){
+   varArr.push(read);        
+   }    
+}
+
+
+if(is_a_definer(sd)){ 
+read = read.rev()
+       read = read.substring(0,read.length-1)
+   read  = strProcessor(read);
+   read = stripUnChars(read);
+   if(!inArray(varArr , read)){
+   varArr.push(read);        
+   }    
+    }   
+updateVariable(varArr)
+   }
+   
+ if(val[v-1] == "," && (val[t-1] == "," || val[t-1] == " " || val[t-1] == ";") && canStore){
+       read = read.rev()
+       read = read.substring(0,read.length-1)
+   read  = strProcessor(read);
+   read = stripUnChars(read);
+   if(!inArray(varArr , read)){
+   varArr.push(read);        
+   }
+   break;
+updateVariable(varArr) ;   
+   }  
+ 
+     
+  if(val[v-1] == "." && (val[t-1] == "." || val[t-1] == " " || val[t-1] == "(")){
+read = read.rev()
+       read = read.substring(0,read.length-1)
+   read  = strProcessor(read);
+   read = stripUnChars(read);
+   if(!inArray(varArr , read)){
+   varArr.push(read);        
+   }
+   break      
+      
+  }}
+  
+  lineNumber(this) ;
+  
+ var cx = ""; 
+for(var j = t-1; j >= 0; j--){ 
+   cx += val[j];
+  if(breakers(val[j-1]) || j == 0){
+  cx = cx.trim();
+  
+  if(cx.trim() != ""){
+  var k = cx.length;
+loadArrContent(varArr,"elemP",cx.rev(),function(){
+var vz = f(".js textarea");
+      
+vz.value = val.substring(0,t - k)+this.innerText+" " +val.substring(t,val.length);
+var b = (t-k) + this.innerText.length+1;
+vz.setSelectionRange(b,b);
+  vz.focus();
+  document.body.removeChild(this.parentElement)     
+   }, t , this ) }     
+break;
+}} 
+
+
+    
+}
+ 
+ function strProcessor(str){
+  var h = checkBreaks(str)? str.split(checkBreaks(str)) : str.trim();      
+if(isArray(h)){
+ h = h[0].trim();   
+    
+}     
+ return h;    
+ }
+ 
+ function checkBreaks(str){
+ var x = "+= -= *= /= = * / ( ++ -- {"; x = x.split(" ");
+ for(var k of x){k = k.trim();if(str.includes(k)){return k; break}}
+     
+  return false;   
+ }
+  function isArray(val){return val.push && val.splice ? true : false} 
+   
+
+//console.log(strProcessor("var k += 17")) 
+
+ function is_a_definer(str){
+var definers = "var function constant let class"; definers = definers.split(" ");
+for(var d of definers){
+    if(d.trim() == str.trim()){
+   return true      
+    
+}}
+    
+ return false;    
+ }
+ 
+ function inArray(arr,val){
+ val = typeof val == "string"? val.trim() : val
+ for(var k of arr){
+ k = typeof k == "string" ? k.trim() : k;
+     if(k == val){return true; break}
+ }    
+ return false;    
+ }
+ 
+ function isDefined(val){
+     return val in window
+ }
+
+ function create(name,classN,sty){
+ name = document.createElement(name);
+ name.className = classN;
+for(var c in sty){
+     name.style[c] = sty[c];
+ } 
+ return name;   
+ } 
+ 
+ function loadArrContent(arr,classN,test,func,point , elem){
+
+ var loadArr = [];
+ if(test.trim() != ""){
+for(var g of arr){
+
+if(g.trim().startsWith(test.trim())){
+loadArr.push(g)}    
+}     
+if(loadArr.length > 0){
+
+if(f("."+classN)){document.body.removeChild(f("."+classN))}
+var loadP = create("div",classN,
+
+{"top":getTopLeft(elem,point,"top") + "px",
+
+"left":getTopLeft(elem,point,"left") + "px"
+
+,"position":"absolute"});
+
+for(var x of loadArr){
+var div = create("div","",{});
+div.innerText = x;
+div.onclick = func;
+loadP.appendChild(div)    
+}  
+
+ 
+ document.body.appendChild(loadP)
+ var top = Number(loadP.style.top.replace("px","").trim()),
+ 
+ height =  loadP.scrollHeight;
+ loadP.style.top = top > elem.scrollHeight ? top - height +"px" : top > getPerValue(90,elem.scrollHeight)? top - height + "px" : top+"px";  
+} 
+
+else{if(f("."+classN) != undefined){document.body.removeChild(f("."+classN))} }    
+  }    
+ } 
+ 
+function breakers(val){
+    var b = [" ",".",",",";",":","+=","-=","/=","*=","+","-","/","*","{","(","}",")","[","]"];
+
+    for(var j of b){
+    
+        if(j == val){return true;break}
+    }
+    return false;
+}
+
+function stripUnChars(str){
+  var unNessSt = ["(",")","{",",","\n","[","]" , "}"];
+  
+   for(var z of unNessSt){
+       for(var e of str){
+           if(e == z){
+  str = str.replace(e,"")           
+           }
+       }
+   } 
+   return str.trim();
+}
+
+function updateVariable(arr){
+var updateArr = []
+for(var g of arr){
+g = g.replace(g.match(/[,]/) , "");
+    if(g.split(" ").length > 1){
+    var h = g.split(" ");
+    arr.splice(arr.indexOf(g) , 1)
+    for(var t of h){
+    t = t.replace("{" , "");
+if(inArray(arr,t.trim())){
+    h.splice(h.indexOf(t.trim()) , 1);
+}}
+
+for(var d of h){arr.push(d)};
+     
+        
+    }
+
+    
+}
+
+return arr;       
+}
+var conVar = varArr;
+
+function recheckVariables(elem){
+
+var val = elem.value , read = "";
+for(var k = 0; k < val.length; k++){
+
+for(var v = k-1; v >= 0; v--){
+   read += val[v]; 
+   
+   if(val[v-1] == " " && checkBreaks(val[k-1])){ 
+   //to handle func and class
+var mn =  val.substring(v-9 , v-1),
+//to handle let and var 
+sd = val.substring(v-4 , v-1) , 
+// to handle class defining
+jd = val.substring(v-6 , v-1);
+ 
+if(is_a_definer(mn)){
+    read = read.rev()
+       read = read.substring(0,read.length-1)
+   read  = strProcessor(read);
+   
+   if(!inArray(conVar , read)){
+   conVar.push(read);        
+   }
+}
+
+if(is_a_definer(jd)){
+console.log(read)
+ read = read.rev();
+ 
+       read = read.substring(0,read.length-1)
+   read  = strProcessor(read);
+   
+   if(!inArray(conVar , read)){
+   conVar.push(read);        
+   }    
+}
+
+
+if(is_a_definer(sd)){ 
+read = read.rev()
+       read = read.substring(0,read.length-1)
+   read  = strProcessor(read);
+   
+   if(!inArray(conVar , read)){
+   conVar.push(read);        
+   }    
+    }   
+updateVariable(conVar)
+   }
+   
+ if(val[v-1] == "," && (val[k-1] == "," || val[k-1] == " " || val[k-1] == ";")){
+       read = read.rev()
+       read = read.substring(0,read.length-1)
+   read  = strProcessor(read);
+   
+   if(!inArray(conVar , read)){
+   conVar.push(read);        
+   }
+   break;
+updateVariable(conVar) ;   
+   }  
+ 
+     
+  if(val[v-1] == "." && (val[k-1] == "." || val[k-1] == " " || val[k-1] == "(")){
+read = read.rev()
+       read = read.substring(0,read.length-1)
+   read  = strProcessor(read);
+   
+   if(!inArray(conVar , read)){
+   conVar.push(read);        
+   }
+   break      
+      
+  }
+  
+updateVariable(conVar)  
+  } 
+  
+  read = "";  
+ } 
+   
+}
+  var count = 0;
+  
+/**window.onclick = function(){
+  count++;
+ if(count < 2){
+     f("header").style.display = "none";
+ }
+  
+ setTimeout(function(){
+  count = 0;
+     
+ } , 300)  ;
+ if(count == 2){
+     f("header").style.display = "block"
+ }
+
+ 
+      
+  }
+  
+  **/
+var btn = d("header button"); 
+  
+  
+function switchBtn(elemArr){
+ for(var x of elemArr){
+ if(x.id != "ok"){
+  x.onclick = function(){
+ for(var h of elemArr){
+     if(h == this){h.classList.add("active")}
+     
+     else{
+ h.classList.remove("active")        
+     }
+ }
+ 
+  if(this.id == "output"){loadDocs()}
+ var c = d(".css , .html , .js , .output");
+
+ for(var b of c){if(this.id == b.className){b.style.display = "block";
+ 
+ if(b.children[0].className == "ruler"){
+ currElem = b.children[1];
+     currElem.focus();
+ }
+ //to remove the disElem on clickout
+ if(f(".elemP") != undefined){     
+document.body.removeChild(f(".elemP"))    
+}  
+
+if(f(".clay") != undefined){     
+document.body.removeChild(f(".clay"))  }  
+ 
+ 
+ }else{b.style.display = "none" }     
+      }
+  } } 
+ } 
+ 
+ 
+
+}  
+
+//to load the writing content of the  columns
+
+function loadDocs(){
+var html = f(".html textarea").value, css = f(".css textarea").value , js = f(".js textarea").value ;
+cssCon = create("style","",{});
+cssCon.innerHTML = css;
+jsCon = create("script","",{});
+jsCon.innerHTML = js;
+
+// getting and putting the content into frame window
+
+var target = f("iframe").contentWindow.document;
+
+f("iframe").style.width = window.innerWidth +"px;";
+f("iframe").style.heigth = window.innerHeight+"px";
+target.open();
+target.close();
+target.documentElement.innerHTML = html;
+target.head.appendChild(cssCon);
+target.head.appendChild(jsCon);
+}
+
+f(".menu").onclick = function(){
+ var g = this.nextElementSibling;
+ if(!g.style.display){
+     g.style.display = "block";
+ } 
+ 
+ else{g.style.display = ""}  
+    
+    
+}
+
+// color variable to be used
+
+var colors = "c34271 f070a1 16ffbd 13c998 439f76 026670 9fedd7 fef9c7 fce181 edeae5 501f3a cb2d67 ccccc 14a09b 806543 33266e 111111 542f34 a6507c 185f5d 802bb1 2d283e d1d7e0 576366 4d6d94 86b3d1 99ced3 edb5bf 844d36 474853 86b3d1 aaa0a0 8e8268 00887a fffff c96567 19181a 479761 cebc81 f3d250 ececec fbe8a6 303c6c d2fdff 0d19a3 15db95 f4e4c1 4c8544 10e7dc 6cdaee 7d9e02 1f2605 d6ce15 0677a1 59253a f0ebfa 31708e 687864 8fc1e3 f7f9fb 65ccb7 3b945e f2f2f2 86c232 222629 17e9e0".split(" ");
+
+//creating the colors to be used in any section of the work
+
+function createColorFor(elem){
+currElem.focus();
+ for(var k of colors){
+ 
+  var dv = create("div","col",{"backgroundColor":("#"+k.trim())});
+  dv.text = k.trim();
+  dv.onclick = function(){
+ 
+var t = currElem.selectionStart , c = currElem.value;
+
+currElem.value = c.substring(0,t)+"#"+colors[colors.indexOf(this.text)]+(c[t] == ";" ? "" : ";")+c.substring(t,c.length);
+
+currElem.setSelectionRange(t+this.text+1 , t+this.text+1);
+this.parentElement.style.display = "";  
+
+ f(".opt").style.display = "";     
+      
+  }
+  
+   elem.insertBefore(dv,elem.lastElementChild);      
+ }   
+    
+}
+
+//creating the color
+createColorFor(f(".color"))
+
+
+// closing the color panel with the cancel btn
+
+f(".color button").onclick = function(){
+f(".color").style.display = "";
+  f(".opt").style.display = "";  
+    
+}
+
+// setting the font of the html css js panels
+function setFont(font){
+var x = d("textarea");
+  for(var e of x){
+      e.style.fontSize = font+"px";
+     e.style.lineHeight = font+3+"px"; e.previousElementSibling.style.fontSize = font+"px";
+     e.previousElementSibling.style.lineHeight = font+3+"px";
+  }  
+    
+}
+
+setFont(defaultFont)
+
+
+//embedding the created setfont to adjusting control
+
+f("input").oninput = function(){
+ setFont(Number(this.value));
+    
+  defaultFont = Number(this.value)   
+    
+}
+
+f("#ok").onclick = function(){
+    this.parentElement.style.display = "none";
+    f(".opt").style.display = ""
+}
+
+//getting the total placeable chars on a line of different screen width
+
+function genFontAmt(fontSize,scr){
+  function maxCharForScreen(){
+    return (74*scr)/360  
+  }
+  return (maxCharForScreen() * 8) / fontSize;    
+      
+  } 
+
+
+
+/**
+
+function genText(amt){
+     var x = "abscfg" , res = "";
+     for(var d = 0; d < amt; d++){
+     res += x[Math.ceil(Math.random()*x.length-1)]    
+         
+     }
+     return res;
+ }  
+  c("textarea").value = genText(74);
+  )
+  
+  
+
+c(".testWin").value = genText(genFontAmt(16,550))
+
+c(".testWin").style.fontSize = 16+"px";**/
+
+  switchBtn(btn)
+    </script>
+</body>
+<body
+bgcolor="#E6E6FA "
+</html>
